@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# review1:
+#   titulo: "Review 1"
+#   calificacion: 1.5
+#   contenido: "Descripcion"
+#   producto_id: 
+
+# two:
+#   titulo: ""
+#   calificacion: 5
+#   contenido: "Descripción"
+# #  producto_id: 

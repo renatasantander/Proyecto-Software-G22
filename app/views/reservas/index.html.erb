@@ -1,0 +1,34 @@
+</body>
+<div class="columns is-centered">
+    <div class="column is-half">
+
+        <%if current_user.empleado? || current_user.admin?%>
+            <h1 class="title is-1 has-text-black">Atender reservas</h1>
+        <% else %>
+            <h1 class="title is-1 has-text-black">Sus reservas</h1>
+        <% end %>
+
+        <ul>
+            <% @reservas.each do |reserva| %>
+                <div class="card">
+                    <div class="card-content">
+                        <h1 class="title is-3 has-text-black">
+                            <%= "#{reserva.producto.nombre}"%>
+                        </h1>
+                        <p class="is-flex is-align-items-center">
+                            <span class="label mr-1 has-text-black"> Estado: </span>
+                            <%= reserva.estado %> 
+                        </p>
+                        <li>
+                            <%= link_to "Ver reserva", user_reserva_path(current_user, reserva), class: "button is-link" %>
+                        </li>
+                    </div>
+                </div>
+            <% end %>
+        </ul>
+        <div class="action has-text-right">
+            <%= link_to 'Volver', root_path, class: "button is-link" %>
+        </div>
+    </div>
+</div>
+</body>

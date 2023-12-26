@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+producto1:
+  nombre: "Bebida"
+  precio: 1000
+  imagen: "Hola"
+  disponibilidad: 1
+  descripcion: "jsdjsdj"
+
+producto2:
+  nombre: "MyText"
+  precio: 1
+  imagen: "MyText"
+  disponibilidad: 1
+  descripcion: "MyText"

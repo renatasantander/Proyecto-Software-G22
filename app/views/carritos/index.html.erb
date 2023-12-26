@@ -1,0 +1,52 @@
+<div class="columns">
+  <div class="column is-half is-offset-one-quarter">
+    <div class="box">
+      <div class="box-content">
+
+        <h1 class="title has-text-black is-2" >Carrito</h1>
+        <% if @carrito.carrito_productos.count > 0 %>
+            <% @carrito.carrito_productos.each do |carrito_producto| %>
+              <div class="is-flex is-align-items-center">
+                <p class="label has-text-black is-1 mr-3"><%= carrito_producto.producto.nombre %></p>
+
+                <%= form_with(model: carrito_producto, url: producto_carrito_path(carrito_producto.producto.id, @carrito.id), local: true) do |f| %>
+                  <%= f.label :cantidad %>
+                  <%= f.number_field :cantidad, in: 1..carrito_producto.producto.disponibilidad, step: 1 %>
+                  <%= f.submit "Actualizar", class: "button is-link mr-1" %>
+                <% end %>
+
+                <p> </p>
+
+                <%= form_with(model: carrito_producto, url: remove_carrito_path(carrito_producto.id), local: true) do |f| %>                
+                  <%= f.submit "Eliminar", class: "button is-danger" %>
+                <% end %>
+              </div>
+              <p></p>
+              <p class="is-flex is-align-items-center">
+                <span class = "label has-text-black mr-1">Precio por este producto: </span>
+                $<%= carrito_producto.producto.precio %>
+              </p>
+
+
+            <% end %>
+            <p> </p>
+            
+            <p class="is-flex is-align-items-center">
+              <span class = "label has-text-black mr-1"> Total: </span>
+              $<%= @carrito.total %>
+            </p>
+            <%= link_to "Reservar productos", reservar_carrito_path(@carrito.id), class: "button is-link"%>
+          <% else %>
+            <p>Tu carrito está vacío</p>
+          <% end %>
+        <p></p>
+      </div>
+    </div>
+    <div class= "action has-text-right">
+      <%= link_to 'Volver', root_path, class: "button is-link" %>
+    </div>
+  </div>
+</div>
+          
+          
+        

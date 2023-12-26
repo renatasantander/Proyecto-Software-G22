@@ -1,0 +1,15 @@
+<div class="cont-<%= mensaje.user.id %>">
+    <div class="message-box msg-<%= mensaje.user.id %> " >
+        <div class="d-flex align-items-center">
+            <%= image_tag(mensaje.user.chat_image, class: 'chat_pfp') %>
+            <div>
+                <% if mensaje.user.empleado? %>
+                    <h6 class="name"> <%= mensaje.user.name %> (Empleado)</h6>
+                <% else %>
+                    <h6 class="name"> <%= mensaje.user.name %> </h6>
+                <% end %>
+            </div>
+        </div>
+        <%= mensaje.contenido %>
+    </div>
+</div>

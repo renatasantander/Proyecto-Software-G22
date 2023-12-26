@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html class="has-background-grey-lighter">
+  <head>
+    <title>Tienda</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <section class="hero is-warning">
+        <div class="hero-body">
+            <div class="columns">
+                <div class="column is-half is-offset-one-quarter">
+                    <div class="has-text-centered">
+                        <%= link_to "Librería G22", root_path, class: "title is-1 has-text-link"%>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+
+                            <% if flash[:notice] %>
+                            <p class="notice"><%= flash[:notice] %></p>
+                            <% end %>
+
+                            <% if flash[:alert] %>
+                            <p class="alert"><%= flash[:alert] %></p>
+                            <% end %>
+
+                            <div class="content">
+                                <%= yield %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+  </body>
+</html>

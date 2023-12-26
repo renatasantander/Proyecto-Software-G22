@@ -1,0 +1,39 @@
+
+<div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+        <div class="box">
+            <div class="box-content">
+
+                <h1 class= "title is-2 has-text-black">Reservar producto</h1>
+                <%= form_with model: [@producto, Reserva.new] do |form| %> 
+
+                <div>
+                    <%= form.label :cantidad_productos, "Que cantidad desea solicitar", class: "label has-text-black" %>
+                    <%= form.number_field :cantidad_productos, in: 1..@producto.disponibilidad, step: 1 %>
+                    <% Reserva.new.errors.full_messages_for(:cantidad_productos).each do |message| %>
+                    <div><%= message %></div>
+                    <% end %>
+                </div>
+                <p> </p>
+
+                <div>
+                    <%= form.label :descripcion, "Descripción", class: "label has-text-black" %>
+                    <%= form.text_field :descripcion, class: "input" %>
+                    <% Reserva.new.errors.full_messages_for(:descripcion).each do |message| %>
+                    <div><%= message %></div>
+                    <% end %>
+                </div>
+
+                <p> </p>
+
+                <div>
+                    <%= form.submit "Reservar", class: "button is-link"%>
+                </div>
+                <% end %>
+            </div>
+        </div>
+        <div class="action has-text-right">
+            <%= link_to 'Volver', producto_path(@producto), class: "button is-link" %>
+        </div>
+    </div>
+</div>

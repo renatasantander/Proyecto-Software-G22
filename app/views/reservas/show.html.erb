@@ -1,0 +1,68 @@
+<div class="columns">
+    <div class="column is-half is-offset-one-quarter">
+        <div class="box">
+            <div class="box-content">
+
+                <h1 class="title is-2 has-text-black">Reserva <%= @reserva.id %></h1>
+                <% if current_user.empleado || current_user.admin? %>
+                    <p class="is-flex is-align-items-center">
+                        <span class="label mr-1 has-text-black"> Usuario: </span>
+                        <%= @reserva.user.name %>
+                    </p>
+                <% end %>
+
+                <p class="is-flex is-align-items-center">
+                    <span class="label mr-1 has-text-black">Libro solicitado:</span>
+                    <%= @reserva.producto.nombre %>
+                </p>
+
+                <p class="is-flex is-align-items-center">
+                    <span class="label mr-1 has-text-black">Cantidad:</span>
+                    <%= @reserva.cantidad_productos %>
+                </p>
+                
+                <p class="label has-text-black">Descripción de su reserva: </p>
+                <%= @reserva.descripcion %>
+
+                <p> </p>
+
+                <p class="is-flex is-align-items-center">
+                    <span class="label mr-1 has-text-black"> Estado de su reserva: </span>
+                    <%= @reserva.estado %>
+                </p>
+
+                <p class="is-flex is-align-items-center">
+                    <span class="label mr-1 has-text-black"> Fecha: </span> 
+                    <%= @reserva.created_at %>
+                </p>
+
+                <ul>
+                
+                <% if current_user.empleado || current_user.admin? %>
+                    <li><%= link_to "Editar", edit_producto_reserva_path(@reserva.producto.id), class: "button is-link" %></li>
+                <% end %>
+
+                <p></p>
+
+                <% if @reserva.estado == "Aceptada" && @reserva.chat %>
+                    <ul>
+                        <li><%= link_to "Acceder a chat", chat_path(@reserva.chat), class: "button is-link" %></li>
+                    </ul>
+                <% end%>
+
+                <p> </p>
+
+                    <li><%= link_to "Cancelar reserva", :user_reserva, class: "button is-danger",
+                data: {
+                turbo_method: :delete,
+                turbo_confirm: "¿Estás seguro de que quieres eliminar esta reserva?"
+                } %></li>
+                </ul>
+                
+            </div>
+        </div>
+        <div class="action has-text-right">
+            <%= link_to 'Volver', user_reservas_path, class: "button is-link" %>
+        </div>
+    </div>
+</div>

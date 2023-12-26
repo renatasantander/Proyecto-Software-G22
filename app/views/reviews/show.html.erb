@@ -1,0 +1,45 @@
+<body>
+    <div class="columns">
+        <div class="column is-half is-offset-one-quarter">
+            <div class="box">
+                <div class="box-content">
+
+                    <div class="d-flex align-items-center">
+                        <div class="image-frame">
+                            <%= image_tag(@review.user.chat_image) %>    
+                        </div>                    
+                        <h5 class="title is-3 has-text-right has-text-black"><%= @review.user.name %></h5>
+                    </div>
+                    
+                    <br><p class="label has-text-black">Calificación: <%= @review.calificacion %></p>
+                    <p class="label has-text-black"><%= @review.titulo %></p>
+                    <p>"<%= @review.contenido %>"</p>
+                    
+                    <% if current_user == @review.user || current_user.admin? %>
+                        <ul>
+                            <li><%= link_to "Editar", :edit_producto_review, class: "button is-link" %></li>
+                            <p></p>
+                            <li><%= link_to "Eliminar", :producto_review, class: "button is-danger",
+                            data: {
+                            turbo_method: :delete,
+                            turbo_confirm: "¿Estás seguro de que quieres eliminar esta reseña?"
+                            } %></li>
+                        </ul>
+
+                    <% elsif current_user.empleado? %>
+                        <ul>
+                            <li><%= link_to "Eliminar", :producto_review, class: "button is-danger",
+                            data: {
+                            turbo_method: :delete,
+                            turbo_confirm: "¿Estás seguro de que quieres eliminar esta reseña?"
+                            } %></li>
+                        </ul>
+                    <% end %>                
+                </div>
+            </div>
+            <div class="action has-text-right">
+                <%= link_to 'Volver', producto_reviews_path, class: "button is-link" %>
+            </div>
+        </div>
+    </div>
+</body>

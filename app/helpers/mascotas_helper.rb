@@ -1,0 +1,2 @@
+module MascotasHelper
+end

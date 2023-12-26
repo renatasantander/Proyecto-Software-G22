@@ -1,0 +1,39 @@
+<div id="chatroom_container" class= "row bg-light text-dark">
+    <div id="side_panel" class="col-md-4 col-sm-4">
+        <h1>Chats</h1>
+        <%= turbo_stream_from "chats" %>
+        <div id="chats">
+            <% @chats.each do |chat| %>
+                <%= render partial: 'chat', locals: { chat: chat } if chat%>
+            <% end %>
+        </div>
+
+    <p> </p>
+        
+    </div>
+    <div id="chat_container" 
+    class="col-md-8 col-sm-8 bg-light text-light">
+        <% if @single_chat %>
+            <div id="single_chat">
+                <h4 class="text-center text-dark"> <%= @single_chat.name %> </h4>
+                <% if current_user.empleado || current_user.admin? %>
+                    <%= link_to "Eliminar chat", chat_path(@single_chat), 
+                    data: { 
+                    turbo_method: :delete,
+                    turbo_confirm: "¿Confirmar?"
+                    } %>
+                <% end %>
+                <%= turbo_stream_from @single_chat %>
+                <div id="mensajes">
+                    <%= render @mensajes %>
+                </div>
+                <%= render partial: 'layouts/new_mensaje_form' %>
+                
+            </div>
+        <% end %>
+    </div>
+</div>
+<p> </p>
+<div class="action has-text-centered">
+    <%= link_to 'Volver', root_path, class: "button is-link"%>
+</div>

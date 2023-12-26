@@ -1,0 +1,48 @@
+<body>
+    <div class="container ">
+        <div class="columns is-centered ">
+            <div class="column is-half">
+
+            <h1 class="title is-1 has-text-centered has-text-black">Todos los Libros</h1>
+                <div class="field has-text-centered">
+                <ul>
+                    <% @productos.each do |producto| %>
+                        <li>
+                        <div class="card">
+                            <div class="card-content ">
+                                <div class="image-container">
+                                    <%= image_tag producto.imagen, class: "image" %>
+                                </div>
+                                <p></p>
+                                <div class="title is-3 has-text-black"> <%= producto.nombre %> </div>
+                                <div class="label has-text-black"> Precio: $<%= producto.precio %></div> 
+                                <div class="label has-text-black">
+                                    Stock: 
+                                    <% if producto.disponibilidad == 0 %>
+                                        agotado
+                                    <% else %>
+                                        <%= producto.disponibilidad %>
+                                    <% end %>
+
+                                </div>
+                                <div class="actions has-text-right">
+                                    <%= link_to "Ver producto", producto, class: "button is-link" %>
+                                </div>
+                            </div>
+                        </div>
+                        </li>
+                    <% end %>
+                </ul>
+                <% if user_signed_in? %>
+                    <% if current_user.empleado? || current_user.admin?%>
+                        <%= link_to "Agregar producto", new_producto_path, class: "button is-link" %>
+                    <% end %>
+                <% end %>
+                </div>
+                <div class="actions has-text-left">
+                    <%= link_to 'Volver', root_path, class: "button is-link" %>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

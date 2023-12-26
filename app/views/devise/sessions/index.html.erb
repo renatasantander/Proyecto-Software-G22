@@ -1,0 +1,23 @@
+<h1 class="title is-2 has-text-black">Empleados</h1>
+<ul>
+  <% @users.order(id: :asc).each do |user| %>
+    <% if user.empleado? %>
+        <%= link_to user.name, admin_user_path(user), class: "navbar-item" %>
+    <% end %>
+  <% end %>
+</ul>
+
+<h1 class="title is-2 has-text-black">Usuarios</h1>
+<ul>
+  <% @users.order(id: :asc).each do |user| %>
+    <% if not user.empleado? %>
+      <% if not user.admin? %>
+        <%= link_to user.name, admin_user_path(user), class: "navbar-item" %>
+      <% end %>
+    <% end %>
+  <% end %>
+</ul>
+
+<div class="action has-text-right">
+  <%= link_to 'Volver', root_path, class: "button is-link" %>
+</div>

@@ -1,0 +1,46 @@
+<body>
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+
+            <h1 class="title is-1 has-text-centered has-text-black">Reseñas</h1>
+                <div>
+
+                <ul>
+                    <% @reviews.each do |review| %>
+                        <li>
+                            <div class="card">
+                                <div class="card-content">
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="image-frame">
+                                            <%= image_tag(review.user.chat_image) %>
+                                        </div>
+                                        <div>
+                                            <h4 class="title is-5 has-text-black"><%= review.user.name %></h4>
+                                        </div>
+                                    </div>
+
+                                    <div> 
+                                        <br><p class="label has-text-black">Calificación: <%= review.calificacion %></p>
+                                        <p class="label has-text-black">Título: <%= review.titulo %></p>
+                                        <p></p>
+                                    </div>
+                                
+                                    <div class="actions">
+                                        <%= link_to "Ver reseña", producto_review_path(@producto, review), class: "button is-link" %>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </li>
+                    <% end %>
+                </ul>
+                <div class="action has-text-right">
+                    <%= link_to 'Volver', producto_path(@producto), class: "button is-link" %>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

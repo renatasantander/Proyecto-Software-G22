@@ -1,0 +1,82 @@
+<body>
+    <div class="columns is-vcentered">
+        <div class="column">
+
+            <h1 class="title is-2 has-text-centered has-text-black"> <%= @producto.nombre %> </h1>
+            <div class="image-container2">
+                <%= image_tag @producto.imagen, class: "image"%>
+            </div>
+        </div>
+
+        <div class="column is-centered">
+            <div class="card">
+                <div class="card-content">
+                    <h3 class="title is-4 has-text-black"> Precio: $<%= @producto.precio %> </h3>
+                    
+                    <p class ="label has-text-black"> Descripción: </p>
+                    <p> <%= @producto.descripcion %> </p>
+                    <p class="is-flex is-align-items-center">
+                        <span class ="label mr-1 has-text-black"> Disponibilidad: </span>
+                        <%= @producto.disponibilidad %> 
+                    </p>
+                    
+                    <% if @producto.reviews.any? %>
+                        <p class ="label has-text-black"> Calificación: <%= @producto.calificacion_promedio %> </p>
+                    <% else %>
+                        <p class ="label has-text-black"> Calificación: No tiene</p>
+                    <% end %>
+
+                    <% if user_signed_in? %>
+                        <% if current_user.empleado? %>
+                            <ul>
+                                <li> <%= link_to "Reseñas del producto", producto_reviews_path(@producto.id), class: "button is-link"%> </li>
+                                <p> </p>
+                                <li> <%= link_to "Editar producto", :edit_producto, class: "button is-link"%> </li>
+                                <p> </p>
+                                <li><%= link_to "Eliminar producto", :producto,
+                                data: {
+                                turbo_method: :delete,
+                                turbo_confirm: "¿Confirmar?"
+                                }, class: "button is-danger" %></li>
+                            </ul>
+                        <% elsif current_user.admin? %>
+                            <ul>
+                                <li> <%= link_to "Reservar producto", new_producto_reserva_path(@producto), class: "button is-link"%> </li>
+                                <p> </p>
+                                <li> <%= link_to "Deja una reseña", new_producto_review_path(@producto.id), class: "button is-link"%> </li>
+                                <p> </p>
+                                <li> <%= link_to "Reseñas del producto", producto_reviews_path(@producto.id), class: "button is-link"%> </li>
+                                <p> </p>
+                                <li> <%= link_to "Editar producto", :edit_producto, class: "button is-link"%> </li>
+                                <p> </p>
+                                <li><%= link_to "Eliminar producto", :producto,
+                                data: {
+                                turbo_method: :delete,
+                                turbo_confirm: "¿Confirmar?"
+                                }, class: "button is-danger" %></li>
+                            </ul>
+                        <% else %>
+                            <ul>
+                                <li> <%= link_to "Reservar producto", new_producto_reserva_path(@producto), class: "button is-link"%> </li>
+                                <p> </p>
+                                <li> <%= link_to "Deja una reseña", new_producto_review_path(@producto.id), class: "button is-link"%> </li>
+                                <p> </p>
+                                <li> <%= link_to "Reseñas del producto", producto_reviews_path(@producto.id), class: "button is-link"%> </li>
+                                <p> </p>
+                                <%= form_with(url: carritos_agregar_path) do |form| %>
+                                    <%= form.hidden_field :id, value: @producto.id %>
+                                    <%= form.number_field :cantidad, in: 1..@producto.disponibilidad, step: 1 %>
+                                    <%= form.submit "Agregar al Carrito" , class: "button is-link" %>
+                                <% end %>
+                            </ul>
+                        <% end %>
+                    <% end %>
+
+                </div>
+            </div>
+            <p> </p>
+            <%= link_to 'Volver', productos_path, class: "button is-link"%>
+        </div>
+    </div>
+
+</body>
